@@ -45,9 +45,9 @@ public class OrderPlacementTests {
 
     @Before
     public void setUp() {
-//        WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver();
-        driver = new SafariDriver();
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+  //      driver = new SafariDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 

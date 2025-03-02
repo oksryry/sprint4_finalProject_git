@@ -32,6 +32,10 @@ public class samokatMainPage {
     //верхняя кнопка "Заказать"
     private By topOrderButton = By.xpath(".//div[contains(@class, 'Header_Header')]//button[text()='Заказать']");
 
+    //нижняя кнопка "Заказать"
+    private By bottomOrderButton = By.xpath(".//div[contains(@class, 'Home_FinishButton')]//button[text()='Заказать']");
+
+
     public samokatMainPage(WebDriver driver) {
         this.driver = driver;
         this.i = numberOfElements(); //именно в конструкторе инициализирую её, т.к.
