@@ -1,41 +1,34 @@
 package ru.yandex.praktikum.samokatTests;
 
+import configs.browserRules;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import sprint4_project.pom.samokatMainPage;
 
 public class FaqAccordeonsTest {
-    private WebDriver driver;
 
-    @Before
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-    }
+    @Rule
+    public final browserRules browserRules = new browserRules();
 
     @Test
     public void checkQuestionAndAnswerMatch() {
 
-         samokatMainPage mainPage = new samokatMainPage(driver);
+        browserRules.driver().get("https://qa-scooter.praktikum-services.ru/");
 
-         mainPage.acceptCookies()
-                 .scrollToElement()
-                 .clickOnQuestion();
-//         mainPage.scrollToElement();
-//         mainPage.clickOnQuestion();
+         samokatMainPage mainPage = new samokatMainPage(browserRules.driver());
 
-         Assert.assertEquals(mainPage.getExpectedAnswerFromDOM(), mainPage.getShownAnswerText());
+         mainPage.acceptCookies();
+
+        for (int i = 0; i < mainPage.numberOfAccordeons(); i++) {
+            mainPage.scrollToElement(i)
+                    .clickOnQuestion(i);
+            Assert.assertEquals(mainPage.getExpectedAnswerFromDOM(i), mainPage.getShownAnswerText());
+            System.out.println(mainPage.getExpectedAnswerFromDOM(i));
+        }
+
     }
 
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
 }
